@@ -76,3 +76,5 @@ erDiagram
 - 公共规范：[公共交互与展示规范](%E5%85%AC%E5%85%B1%E4%BA%A4%E4%BA%92%E4%B8%8E%E5%B1%95%E7%A4%BA%E8%A7%84%E8%8C%83.md)。
 - 计算补充：[业务计算与开发交接](%E4%B8%9A%E5%8A%A1%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%BC%80%E5%8F%91%E4%BA%A4%E6%8E%A5.md)。
 - [发布快照](https://github.com/bala-luoluo/cashier-prototype/commit/9c67e8f330a61320ee94a8b014f891d4089fe6d6)。
+
+- 待补充：公司与代理各自承担金额的自动计算规则、多个代理分摊及舍入处理；不得用子订单佣金直接代替承担金额，确认前支付仅预览。
