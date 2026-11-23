@@ -1485,3 +1485,16 @@ body.embedded-points-settings .settings-auth{flex-wrap:wrap}
 @media(max-width:650px){#account-settings{padding:16px}.expiry-form-grid,#account-settings .settings-auth{grid-template-columns:1fr;gap:18px}#account-settings .setting-actions{flex-wrap:wrap}}
 
 .expiry-list-filter{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:28px}.expiry-list-filter label{display:flex;flex-direction:column;gap:8px;font-size:13px}.expiry-list-filter input{width:280px}.expiry-list-filter .btn{margin:0!important;min-height:42px}.expiry-list-filter .muted{align-self:center}
+
+.points-list-detail{width:560px;max-width:90vw;border:1px solid #dce4e9;border-radius:12px;padding:24px;color:#263840}.points-list-detail::backdrop{background:#14242d70}.points-list-detail dl{display:grid;grid-template-columns:130px 1fr;gap:14px}.points-list-detail dd{margin:0;overflow-wrap:anywhere}
+
+/* Native details dialog: centered, scoped controls, aligned rows. */
+dialog.points-list-detail{position:fixed;inset:0;margin:auto;width:640px;max-width:calc(100vw - 40px);max-height:calc(100vh - 48px);padding:0;overflow:auto;background:#fff;border:1px solid #dce4e9;border-radius:14px;box-shadow:0 20px 70px #14242d30;font:14px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#263840}
+.points-detail-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #e2e8ec;background:#fbfcfd}
+.points-detail-head h2{font-size:18px;font-weight:600;margin:0;color:#172b34}
+.points-detail-close{width:34px;height:34px;border:1px solid #d5dde1;background:#fff;border-radius:8px;font-size:22px;cursor:pointer;color:#60727c}
+.points-detail-body{padding:8px 24px 20px}.points-list-detail .points-detail-body dl{display:grid;grid-template-columns:130px minmax(0,1fr);gap:0;margin:0}
+.points-detail-body dt,.points-detail-body dd{padding:13px 0;margin:0;border-bottom:1px solid #edf1f3;overflow-wrap:anywhere}.points-detail-body dt{color:#71818a}.points-detail-body dd{color:#263840;font-variant-numeric:tabular-nums}.points-detail-body dt:last-of-type,.points-detail-body dd:last-of-type{border-bottom:0}
+.points-detail-foot{display:flex;justify-content:flex-end;padding:16px 24px;border-top:1px solid #e2e8ec;background:#fbfcfd}
+.points-detail-done{padding:9px 24px;min-height:40px;border:1px solid #0d5c72;border-radius:8px;color:#fff;background:#0d5c72;font:inherit;cursor:pointer}.points-detail-done:hover{background:#09495c}.points-list-detail button:focus-visible{outline:3px solid #91bdca;outline-offset:2px}
+@media(max-width:560px){.points-list-detail .points-detail-body dl{grid-template-columns:100px minmax(0,1fr)}.points-detail-head,.points-detail-foot{padding:16px}.points-detail-body{padding:4px 16px 16px}}

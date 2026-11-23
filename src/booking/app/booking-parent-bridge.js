@@ -1,5 +1,6 @@
 // Booking transactions use the same local account registry and ledger as the cashier.
 window.bookingBridge={
+ pointsRecords(){return transitTransactions.filter(r=>r.kind==='points').map(r=>({...r}))},
  directory(){retainAccount();return [...accountRegistry.values()].map(s=>({id:s.account.code+s.account.number,name:s.account.name,hall:s.account.hall||'—',points:Number(s.account.pointsAvailable||0)})).concat(Object.keys(companyFunds).map(id=>({id,name:'公司户',hall:id,points:0})))},
  binding(type){return transitBindings[type]||null},
  configure(){transitPage()},
