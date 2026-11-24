@@ -1,0 +1,12 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync(__dirname+'/../app/booking.js','utf8');
+const start=source.indexOf(' function updateAccountSelection(query)'),end=source.indexOf(" $('#consumption-account').oninput",start);
+const elements={'#consumption-account-name':{},'#consumption-matches':{},'#consumption-account':{}};
+const c={d:{account:'OLD'},bookingDirectory:()=>[{id:'DEMO001',name:'演示客户甲'},{id:'DEMO002',name:'演示客户乙'}],$:key=>elements[key],$$:()=>[],esc:s=>s};
+vm.createContext(c);vm.runInContext(source.slice(start,end),c);
+c.updateAccountSelection(' demo001 ');assert.equal(c.d.account,'DEMO001');assert.equal(elements['#consumption-account-name'].value,'演示客户甲');
+c.updateAccountSelection('DEMO');assert.equal(c.d.account,'');assert.equal(elements['#consumption-account-name'].value,'');assert.match(elements['#consumption-matches'].innerHTML,/DEMO002/);
+c.updateAccountSelection('DEMO0001');assert.equal(c.d.account,'');assert.match(elements['#consumption-matches'].innerHTML,/未找到匹配户口/);
+c.updateAccountSelection('');assert.equal(c.d.account,'');assert.equal(elements['#consumption-matches'].innerHTML,'');
+assert.ok(source.includes('esc(d.accountQuery??d.account)'));
+console.log('Passed: exact ID with whitespace/case, partial matches, stale selection cleared, nonexistent ID rejected, empty query and draft rendering.');
