@@ -603,6 +603,7 @@ function exchange(){if(!allowAccountOperation())return;modal('换汇 · '+id(),`
 const systemFxAlgorithms={};
 function getSystemExchangeAlgorithm(from,to){return systemFxAlgorithms[from+'|'+to+'|mul']||'mul'}
 const systemFxRates={'CNY|VND|mul':'3400','HKD|VND|mul':'3162','USD|VND|mul':'25000','VND|CNY|mul':'0.000294','VND|HKD|mul':'0.000316','VND|USD|mul':'0.000040','HKD|CNY|mul':'0.92','HKD|CNY|div':'1.08695652','CNY|HKD|mul':'1.08695652','CNY|HKD|div':'0.92','USD|HKD|mul':'7.8','USD|HKD|div':'0.12820513','HKD|USD|mul':'0.12820513','HKD|USD|div':'7.8','USD|CNY|mul':'7.176','USD|CNY|div':'0.1393534','CNY|USD|mul':'0.1393534','CNY|USD|div':'7.176'};
+const defaultSystemFxRates={...systemFxRates};
 function getSystemExchangeRate(from,to){let value=systemFxRates[from+'|'+to+'|mul'];if(!value||Number(value)<=0)throw Error('系统未配置该币种对汇率，请联系管理员');return value}
 function fxCurrencyChanged(){let key=$('from').value+'|'+$('to').value+'|'+'mul',v=systemFxRates[key];$('fxRate').value=v||'';let hint=$('fxRateSource');if(!hint){hint=document.createElement('small');hint.id='fxRateSource';hint.className='hint';$('fxRate').parentElement.appendChild(hint)}hint.textContent=v?'系统汇率，只读不可调整':'系统未配置该币种汇率，暂不可换汇';updateFx()}
 function fxValue(){let f=$('from').value,t=$('to').value;if(f===t)throw Error('转出与转入币种不能相同');let a=units($('fxA').value),[r,scale]=rate(getSystemExchangeRate(f,t)),m=getSystemExchangeAlgorithm(f,t);if(a<=0n||r<=0n)throw Error('金额和汇率必须大于零');let b=m==='div'?a*scale/r:a*r/scale;if(b<=0n)throw Error('计算结果截断后为零，请检查输入');return{f,t,a,b,m}}
@@ -1300,7 +1301,7 @@ function restorePrototypeParent(s){
  if(Array.isArray(s.qmSettlements))qmSettlements.splice(0,qmSettlements.length,...s.qmSettlements);
  if(Array.isArray(s.transitEvents))transitEvents.splice(0,transitEvents.length,...s.transitEvents);
  if(Array.isArray(s.transitTransactions))transitTransactions.splice(0,transitTransactions.length,...s.transitTransactions);
- if(s.systemFxRates&&typeof s.systemFxRates==='object'){Object.keys(systemFxRates).forEach(k=>delete systemFxRates[k]);Object.assign(systemFxRates,s.systemFxRates)}
+ if(s.systemFxRates&&typeof s.systemFxRates==='object'){const saved={...s.systemFxRates};Object.keys(systemFxRates).forEach(k=>delete systemFxRates[k]);Object.assign(systemFxRates,defaultSystemFxRates,saved)}
  if(s.systemFxAlgorithms&&typeof s.systemFxAlgorithms==='object'){Object.keys(systemFxAlgorithms).forEach(k=>delete systemFxAlgorithms[k]);Object.assign(systemFxAlgorithms,s.systemFxAlgorithms)}
  if(s.companyFunds&&typeof s.companyFunds==='object'){Object.keys(companyFunds).forEach(k=>delete companyFunds[k]);Object.assign(companyFunds,s.companyFunds)}
  if(s.qmExchangeBalances&&typeof s.qmExchangeBalances==='object'){Object.keys(qmExchangeBalances).forEach(k=>delete qmExchangeBalances[k]);Object.assign(qmExchangeBalances,s.qmExchangeBalances)}
