@@ -1501,3 +1501,182 @@ dialog.points-list-detail{position:fixed;inset:0;margin:auto;width:640px;max-wid
 .ledger-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}.ledger-stats>div{padding:18px;border:1px solid #dce5e9;border-radius:12px;background:#fff;text-align:center}.ledger-stats span{display:block;color:#647984;font-size:13px}.ledger-stats strong{display:block;font-size:24px;color:#155d70}.ledger-stats .negative{color:#cb3b32}.points-detail-body label{display:block;margin:14px 0}.points-detail-body label input{display:block;width:100%;margin-top:8px;padding:10px;border:1px solid #cad8df;border-radius:8px}.points-settings td,.points-settings th{padding:12px;white-space:nowrap}
 
 .points-example-row td{background:#f0f7f9!important;color:#536f7b}.points-example-row td:first-child{border-left:3px solid #83adb9}
+
+.sticky-action{position:sticky;right:0;background:white;z-index:1}.point-type-tag{color:#12657a;font-weight:600}.points-list-detail{max-height:90vh;overflow:auto}.points-list-detail .expiry-list-filter{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+
+.point-error:empty{display:none}
+
+.pool-layout .ledger-stats{gap:16px;margin:20px 0 24px}.pool-layout .ledger-stats>div{padding:24px 16px}.pool-layout .ledger-stats strong{font-size:34px;margin:6px 0}.pool-layout .ledger-stats small{font-size:12px;color:#7a8a94}.pool-layout #query{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:26px}.pool-layout #query>label{flex:0 1 180px;min-width:150px}.pool-layout #query .setting-actions{display:flex;gap:8px;margin:0}.pool-layout #query button{height:42px}.pool-layout [data-range]{border-radius:24px}.pool-layout [data-range].active{background:#155d70;color:white;border-color:#155d70}.pool-list-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-bottom:1px solid #dce5e9;margin-bottom:18px}.pool-subtabs{display:flex;gap:20px}.pool-subtabs button{border:0;border-bottom:3px solid transparent;background:transparent;padding:16px 0;color:#7a8a94;border-radius:0;font-weight:600}.pool-subtabs button.active{color:#233943;border-bottom-color:#155d70}.pool-list-toolbar .setting-actions{margin:0 0 10px;display:flex;gap:12px}.pool-record-count{margin:12px 0 20px}.pool-equation{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:18px 20px;background:#f3f6f7;border-radius:10px;margin:20px 0}.pool-equation b{font-size:20px;font-variant-numeric:tabular-nums}.pool-equation i{font-style:normal;color:#96a4ad}.pool-equation small{margin-left:auto;color:#7a8a94}.pool-layout .positive{color:#217746}.pool-layout .negative{color:#bf2b20}.pool-equation .closing{color:#155d70}.pool-amount,.pool-balance{font-weight:600;font-variant-numeric:tabular-nums}.pool-type{display:inline-block;padding:3px 9px;border-radius:20px;font-size:12px;background:#e5f0f4;color:#21627a}.pool-type.out{background:#fff2e3;color:#af5813}.pool-type.in{background:#e9f5ed;color:#217746}.pool-layout [hidden]{display:none!important}@media(max-width:650px){.pool-layout .ledger-stats{grid-template-columns:1fr}.pool-list-toolbar{align-items:flex-start}.pool-subtabs{gap:16px}.pool-equation{gap:8px}.pool-equation small{flex-basis:100%;margin:4px 0 0}}
+
+/* Settings history toolbar and readable modal */
+.settings-config-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 20px}.settings-config-toolbar>span{font-weight:600;color:#263840}
+dialog.settings-history-dialog{width:1000px}
+.settings-history-dialog .points-detail-body{padding:20px 24px 24px}
+.settings-history-count{margin:0 0 14px;color:#71818a}
+.settings-history-dialog .table-wrap{overflow:auto;border:1px solid #e2e8ec;border-radius:10px;max-height:55vh}
+.settings-history-dialog table{width:100%;min-width:760px;border-collapse:collapse;text-align:left}
+.settings-history-dialog th{background:#f3f6f8;color:#647580;position:sticky;top:0;white-space:nowrap}
+.settings-history-dialog th,.settings-history-dialog td{padding:14px 16px;border-bottom:1px solid #e2e8ec;vertical-align:top}
+.settings-history-dialog td{overflow-wrap:anywhere;max-width:240px;min-width:100px}
+.settings-history-dialog th:first-child{min-width:165px}
+.settings-history-dialog tr:last-child td{border-bottom:0}
+.settings-history-dialog .settings-history-empty{text-align:center;color:#7b8b95;padding:48px 16px}
+
+dialog.account-expiry-dialog{width:1100px}
+.account-expiry-dialog .points-detail-head{background:#fff;border-bottom:0;padding:26px 28px 8px;gap:24px;align-items:flex-start}
+.account-expiry-dialog .points-detail-head h2{font-size:20px;line-height:1.7;overflow-wrap:anywhere}
+.account-expiry-dialog .expiry-history-close{flex:none;padding:9px 20px;min-height:40px;border:1px solid #cad6dd;border-radius:8px;background:#fff;color:#263840;font:inherit;cursor:pointer}
+.account-expiry-dialog .points-detail-body{padding:8px 28px 28px}
+.expiry-current-summary{margin:0 0 20px;color:#62747e;font-size:15px}
+.account-expiry-dialog .settings-history-empty{text-align:left;padding:32px 18px}
+@media(max-width:600px){.account-expiry-dialog .points-detail-head{padding:20px 16px 8px;gap:12px}.account-expiry-dialog .points-detail-body{padding:8px 16px 20px}.account-expiry-dialog .points-detail-head h2{font-size:17px}}
+
+.points-list-layout>h2{font-size:24px;margin:0 0 22px}
+.points-list-layout .ledger-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0}
+.points-list-layout .ledger-stats>div{padding:24px 16px}
+.points-list-layout .ledger-stats strong{font-size:32px;margin-top:8px}
+.points-list-layout #query{display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px;margin-bottom:18px}
+.points-list-layout #query>label{flex:1 1 150px;min-width:0}
+.points-list-layout #query>label:nth-child(-n+2){flex-basis:200px}
+.points-list-layout #query input,.points-list-layout #query select{width:100%;height:42px;box-sizing:border-box}
+.points-list-layout #query .setting-actions{display:flex;gap:8px;align-self:flex-start;margin:27px 0 0;flex-wrap:wrap}
+.points-list-layout #query .setting-actions button{border-radius:24px;min-height:42px;white-space:nowrap}
+.points-list-layout #query .setting-actions button.active{background:#245c70;color:#fff;border-color:#245c70}
+.points-list-layout #export{margin-top:27px;min-height:42px}
+.points-list-layout #query-name{background:#f4f7f8}
+.points-list-count{color:#7b8b95;margin:0 0 16px}
+.points-list-amount{font-weight:650;font-variant-numeric:tabular-nums}
+.points-list-layout table{width:100%;border-collapse:collapse}
+.points-list-layout th{background:#f3f6f8;color:#5b6d78}
+.points-list-layout th,.points-list-layout td{padding:16px;border-bottom:1px solid #e2e8ec;text-align:left}
+@media(max-width:600px){.points-list-layout .ledger-stats{gap:8px}.points-list-layout .ledger-stats strong{font-size:24px}.points-list-layout .ledger-stats>div{padding:16px 8px}}
+
+.points-exchange-layout #query .exchange-method-filter{flex:0 1 140px}
+.points-exchange-layout #content table{min-width:1000px;table-layout:auto}
+.points-exchange-layout #content th:nth-child(6){min-width:220px}
+.points-exchange-layout #content td:nth-child(6){white-space:normal;overflow-wrap:anywhere;max-width:400px;line-height:1.6}
+.points-exchange-layout #content td:nth-child(5){font-variant-numeric:tabular-nums;font-weight:650}
+.points-exchange-layout #content th:nth-child(7),.points-exchange-layout #content td:nth-child(7){white-space:nowrap}
+
+.points-balances-layout #query>label:nth-child(-n+2){flex:0 1 260px}
+.points-balances-layout #query>label[hidden],.points-balances-layout #query .setting-actions[hidden]{display:none}
+.points-balances-layout #content table{min-width:850px}
+.points-balances-layout .sticky-action{min-width:210px;white-space:nowrap}
+.points-balances-layout .sticky-action button{margin-right:8px;padding:8px 14px;min-height:38px;border:1px solid #cad6dd;border-radius:8px;background:#fff;color:#263840;font:inherit;cursor:pointer}
+.points-balances-layout .sticky-action button:last-child{margin-right:0}
+.points-balances-layout .sticky-action button:hover{background:#edf5f7}
+.points-balances-layout th.sticky-action{background:#f3f6f8}
+
+dialog.account-points-dialog{width:1100px}
+.account-points-dialog .points-detail-head{gap:20px;background:#fff;border:0;padding:24px 28px 12px}
+.account-points-dialog .points-detail-body{padding:0 28px 28px}
+.account-detail-actions{display:flex;gap:12px;flex-shrink:0}
+.account-detail-actions button,.point-adjust-dialog button{border:1px solid #cad6dd;border-radius:8px;padding:10px 20px;background:white;color:#263840;font:inherit;cursor:pointer}
+.account-detail-filter{display:flex;align-items:end;gap:16px;flex-wrap:wrap}
+.account-detail-filter label{margin:8px 0;flex:0 1 180px}
+.account-detail-filter .setting-actions{display:flex;gap:8px;margin:8px 0}
+.account-detail-filter button{border:1px solid #cad6dd;border-radius:24px;padding:10px 16px;background:#fff;font:inherit;cursor:pointer}
+.account-detail-filter button.active{background:#245c70;color:#fff;border-color:#245c70}
+.account-points-dialog table{width:100%;min-width:760px;border-collapse:collapse;text-align:left}
+.account-points-dialog .table-wrap{overflow:auto;max-height:48vh}
+.account-points-dialog th,.account-points-dialog td{padding:16px;border-bottom:1px solid #e2e8ec}
+.account-points-dialog th{background:#f3f6f8;white-space:nowrap}
+.account-points-dialog .positive{color:#217448;font-weight:650}
+.account-points-dialog .negative{color:#b52d26;font-weight:650}
+dialog.point-adjust-dialog{width:560px}
+.point-adjust-dialog .points-detail-head{padding:24px 28px 8px;background:#fff;border:0}
+.point-adjust-dialog .points-detail-head h2{font-size:23px}
+.point-adjust-dialog .points-detail-body{padding:0 28px}
+.point-adjust-dialog .points-detail-body label{font-weight:600;margin:18px 0}
+.point-adjust-dialog input,.point-adjust-dialog select,.point-adjust-dialog textarea{display:block;width:100%;box-sizing:border-box;padding:12px;margin-top:8px;border:1px solid #cad6dd;border-radius:8px;font:inherit;font-weight:400;background:white;color:#263840}
+.point-adjust-note{color:#62747e;line-height:1.65;margin:16px 0}
+.point-adjust-auth{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.point-adjust-dialog .points-detail-foot{padding:8px 28px 28px;background:#fff;border:0;gap:12px}
+.point-adjust-dialog button.primary{background:#245c70;border-color:#245c70;color:#fff}
+@media(max-width:600px){.account-points-dialog .points-detail-head{flex-wrap:wrap}.point-adjust-auth{grid-template-columns:1fr;gap:0}.account-detail-filter .setting-actions{flex-wrap:wrap}}
+
+dialog.pool-adjust-dialog{width:620px}
+.pool-adjust-summary{display:flex;justify-content:space-between;align-items:center;gap:16px;background:#f2f7f9;border:1px solid #dfE8ed;border-radius:10px;padding:14px 18px;margin:12px 0 4px;color:#62747e}
+.pool-adjust-summary strong{font-size:24px;color:#245c70;font-variant-numeric:tabular-nums}
+.pool-adjust-summary small{font-size:13px;font-weight:400}
+.pool-adjust-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pool-adjust-dialog .point-adjust-auth{border-top:1px solid #e2e8ec;margin-top:22px;padding-top:4px}
+.pool-adjust-dialog .points-detail-foot{position:sticky;bottom:0}
+.pool-adjust-dialog .point-error:empty{display:none}
+@media(max-width:520px){.pool-adjust-fields{grid-template-columns:1fr;gap:0}}
+
+/* Shared cashier visual language — 2026-11-27 */
+:root{--primary:#0d5c72;--bg:#f3f6f7;--text:#0f1b21;--muted:#60727c;--line:#e2e8eb;--soft:#e2eff2}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.55;color:#0f1b21;background:#f3f6f7}
+button,input,select,textarea{font-family:inherit}
+button{border-radius:8px;border-color:#d5dde1;font-size:13px;padding:8px 14px}
+button:focus-visible{outline:3px solid #9bc1cc;outline-offset:2px}
+input:not([type=checkbox]):not([type=radio]),select,textarea{border:1px solid #d5dde1;border-radius:8px;color:#263840;font-size:14px;font-weight:400;box-sizing:border-box}
+input:not([type=checkbox]):not([type=radio]),select{min-height:40px}
+textarea{min-height:85px}
+input:focus,select:focus,textarea:focus{outline:2px solid #8cb8c6;outline-offset:1px;box-shadow:0 0 0 3px #0d5c720a}
+input[readonly],input:disabled{background:#f3f6f7;color:#60727c}
+input::placeholder,textarea::placeholder{color:#7b8a92}
+dialog{border-radius:14px;border:1px solid #e2e8eb;box-shadow:0 18px 60px #13232b30}
+dialog::backdrop{background:#14242d70}
+
+.points-settings h2,.points-list-layout>h2{font-size:22px;font-weight:600;letter-spacing:-.4px;margin-bottom:20px}
+.points-settings .settings-nav{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid #e2e8eb;padding-bottom:0;margin-bottom:22px}
+.points-settings .settings-nav button{padding:12px 16px;border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;color:#60727c;font-size:13px}
+.points-settings .settings-nav button.active{background:transparent;color:#0d5c72;border-bottom-color:#0d5c72;font-weight:600}
+.points-settings .settings-nav button:hover{background:#edf4f5}
+.points-settings button.primary,.points-detail-foot button.primary,.points-detail-done{background:#0d5c72;border-color:#0d5c72;color:#fff}
+.points-settings .ledger-stats{gap:14px;margin:20px 0}
+.points-settings .ledger-stats>div{border:1px solid #e2e8eb;border-radius:12px;padding:18px 16px;background:#fdfefe;box-shadow:0 1px 2px #0f1b210a}
+.points-settings .ledger-stats strong{font-size:24px;font-weight:600;color:#0d5c72;margin-top:6px}
+.points-settings .ledger-stats span{font-size:12px;color:#60727c}
+.points-settings .ledger-stats small{font-size:11px;color:#60727c}
+.points-settings #query{padding:20px;border:1px solid #e2e8eb;border-radius:12px;background:#fdfefe;gap:14px}
+.points-settings #query label,.points-settings .setting-line label{font-size:12px;font-weight:500;color:#44535c}
+.points-settings #query .setting-actions button,.account-detail-filter button{border-radius:8px;font-size:13px;padding:8px 14px}
+.points-settings #query .setting-actions button.active,.account-detail-filter button.active{background:#e2eff2;color:#0d5c72;border-color:#e2eff2}
+.points-settings .table-wrap{border:1px solid #e2e8eb;border-radius:12px;background:#fdfefe;overflow:auto}
+.points-settings table,.account-points-dialog table,.settings-history-dialog table{font-size:12px}
+.points-settings th,.account-points-dialog th,.settings-history-dialog th{padding:13px 17px;background:#f5f8f9;color:#60727c;font-weight:500;border-color:#e2e8eb}
+.points-settings td,.account-points-dialog td,.settings-history-dialog td{padding:15px 17px;border-color:#edf1f2}
+.points-settings tbody tr:hover{background:#f6fafb}
+.points-settings .points-list-count,.points-settings .pool-record-count{font-size:12px;color:#60727c}
+.points-settings .sticky-action button{font-size:12px;padding:5px 10px;min-height:32px}
+.points-list-detail .points-detail-head,.account-expiry-dialog .points-detail-head,.account-points-dialog .points-detail-head,.point-adjust-dialog .points-detail-head{padding:20px 24px;border-bottom:1px solid #e2e8eb;background:#fbfcfc}
+.points-list-detail .points-detail-head h2{font-size:18px;font-weight:600;letter-spacing:0;margin:0}
+.points-list-detail .points-detail-body,.account-expiry-dialog .points-detail-body,.account-points-dialog .points-detail-body,.point-adjust-dialog .points-detail-body{padding:20px 24px}
+.points-list-detail .points-detail-body label{font-size:12px;font-weight:500;color:#44535c}
+.points-list-detail .points-detail-foot{padding:16px 24px;border-top:1px solid #e2e8eb;background:#fbfcfc}
+.points-list-detail button,.point-adjust-dialog button,.account-detail-actions button{font-size:13px;border-radius:8px}
+.point-adjust-note,.expiry-current-summary{font-size:13px}
+.pool-equation{font-size:13px;border-radius:10px;background:#f5f8f9}
+.pool-equation b{font-size:20px}
+@media(max-width:600px){.points-settings #query,.points-list-detail .points-detail-body{padding:16px}.points-settings .ledger-stats strong{font-size:21px}}
+
+/* All points dialogs share the cashier modal shell. */
+dialog.points-list-detail{--dialog-border:#e2e8eb;max-height:calc(100dvh - 32px);max-width:calc(100vw - 32px);padding:0;border:1px solid var(--dialog-border);border-radius:14px;background:#fff;overflow:hidden;font:14px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#263840}
+dialog.points-list-detail[open]{display:flex;flex-direction:column}
+dialog.points-list-detail>form{display:flex;flex-direction:column;min-height:0;max-height:calc(100dvh - 34px);margin:0}
+dialog.points-list-detail .points-detail-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-shrink:0;padding:18px 24px;background:#fbfcfc;border-bottom:1px solid var(--dialog-border)}
+dialog.points-list-detail .points-detail-head h2{font-size:18px;line-height:1.5;font-weight:600;overflow-wrap:anywhere}
+dialog.points-list-detail .points-detail-body{min-height:0;overflow:auto;padding:20px 24px}
+dialog.points-list-detail .points-detail-foot{position:static;flex-shrink:0;display:flex;justify-content:flex-end;gap:10px;padding:14px 24px;background:#fbfcfc;border-top:1px solid var(--dialog-border)}
+dialog.points-list-detail button{font-family:inherit;font-size:13px;line-height:1.5;border:1px solid #d5dde1;border-radius:8px;padding:8px 14px;min-height:36px;background:white;color:#263840;cursor:pointer}
+dialog.points-list-detail button.primary,dialog.points-list-detail .points-detail-done{background:#0d5c72;border-color:#0d5c72;color:white}
+dialog.points-list-detail button:hover{border-color:#9fb8c0;background:#edf4f5;color:#0a4a5c}
+dialog.points-list-detail button.primary:hover,dialog.points-list-detail .points-detail-done:hover{background:#0a4a5c;color:white}
+dialog.points-list-detail .points-dialog-head-close{flex-shrink:0;font-size:12px}
+dialog.points-list-detail .points-detail-close{width:36px;height:36px;padding:0;font-size:22px}
+dialog.points-list-detail input:not([type=checkbox]):not([type=radio]),dialog.points-list-detail select{height:42px;min-height:42px;padding:10px 12px;font-size:14px;font-weight:400}
+dialog.points-list-detail textarea{min-height:80px;font-size:14px;padding:10px 12px}
+dialog.points-list-detail label{font-size:12px;font-weight:500;color:#44535c}
+dialog.points-list-detail .point-adjust-auth{margin-top:18px;padding-top:4px;border-top:1px solid #e2e8eb}
+dialog.points-list-detail .point-adjust-auth label{margin-bottom:0}
+dialog.points-list-detail .point-error:empty{display:none}
+dialog.points-list-detail .point-error:not(:empty){padding:10px 12px;background:#fff1ef;border:1px solid #efc9c3;border-radius:8px;color:#c4452f;margin:0 0 16px}
+dialog.points-list-detail .table-wrap{border:1px solid #e2e8eb;border-radius:10px;overflow:auto}
+dialog.points-list-detail table{font-size:12px}
+dialog.points-list-detail th{padding:13px 17px;background:#f5f8f9;color:#60727c;font-weight:500}
+dialog.points-list-detail td{padding:14px 17px}
+dialog.points-list-detail .account-detail-filter button.active{background:#e2eff2;color:#0d5c72;border-color:#e2eff2}
+@media(max-width:600px){dialog.points-list-detail .points-detail-head,dialog.points-list-detail .points-detail-body,dialog.points-list-detail .points-detail-foot{padding:16px}dialog.points-list-detail .points-detail-head h2{font-size:16px}}
