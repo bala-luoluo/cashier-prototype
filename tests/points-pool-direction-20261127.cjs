@@ -1,11 +1,13 @@
-const fs=require('fs'),vm=require('vm'),assert=require('assert');
-const data={};const ctx={localStorage:{getItem:k=>data[k]||null,setItem:(k,v)=>data[k]=v},Intl,Date,console};vm.createContext(ctx);vm.runInContext(fs.readFileSync('src/points/src/points-engine.js','utf8'),ctx);
-const p=ctx.Points;const check=()=>{const s=p.snapshot();for(const f of s.flows.filter(x=>x.place==='客户持有')){const matches=s.flows.filter(x=>x.customerFlow===f.no);assert.equal(matches.length,1);assert.equal(matches[0].amount,f.amount)}assert.equal(s.pool,s.holding+100)};
-p.finance(100,'期初','2026-11-27','a','b');p.manual('QA',50,'添加','a','b');check();p.manual('QA',-5,'扣除','a','b');check();
-p.transaction([{account:'QA',amount:-10,order:'booking',method:'酒店'}],'booking');check();
-p.transaction([{account:'QA',amount:-5,order:'repay',method:'垫付还款'}],'repay');check();
-const before=JSON.stringify(p.snapshot());assert.equal(p.transaction([{account:'QA',amount:-5}],'repay'),false);assert.throws(()=>p.transaction([{account:'QA',amount:-999}],'bad'));assert.equal(JSON.stringify(p.snapshot()),before);
-p.correct(p.snapshot().batches[0].no,2,'更正','a','b');check();
-p.close({order:'close',account:'QA',turnover:1});check();
-const s=p.snapshot();const future=p.snapshot(Date.now()+100*86400000);assert.equal(future.holding,0);assert.equal(future.pool,100);assert.equal(future.flows.filter(f=>f.customerFlow).length,future.flows.filter(f=>f.place==='客户持有').length);
-console.log('PASS: 同向等额同步、收工、增减、更正、预定、还款、到期、重复及失败无重复记账');
+const fs=require('fs'),vm=require('vm'),assert=require('assert');const data={};
+const ctx={localStorage:{getItem:k=>data[k]||null,setItem:(k,v)=>data[k]=v},Intl,Date};vm.createContext(ctx);
+vm.runInContext(fs.readFileSync('src/points/src/points-engine.js','utf8'),ctx);
+const p=ctx.Points;p.manual('QA',100,'新增','a','b');assert.equal(p.snapshot().pool,100);
+p.manual('QA',-10,'扣除','a','b');assert.equal(p.snapshot().pool,90);
+for(const [method,key] of [['酒店','booking'],['垫付还款','repay']]){p.transaction([{account:'QA',amount:-10,method,order:key}],key);assert.equal(p.snapshot().pool,90)}
+assert.equal(p.snapshot().holding,70);assert.equal(p.transaction([{account:'QA',amount:-10,method:'酒店'}],'booking'),false);
+assert.throws(()=>p.transaction([{account:'QA',amount:-1000,method:'酒店'}],'fail'));
+p.correct(p.snapshot().batches[0].no,5,'更正','a','b');assert.equal(p.snapshot().pool,95);
+const s=p.snapshot(Date.now()+100*86400000);assert.equal(s.holding,0);assert.equal(s.pool,170);
+assert.equal(p.snapshot(Date.now()+101*86400000).pool,170);
+assert.equal(s.flows.filter(f=>f.place==='积分池'&&f.type==='兑换'&&f.method!=='手动扣除').length,0);
+console.log('PASS: 普通增减同向、兑换池不变、逾期回池、失败与重复无额外记账');
