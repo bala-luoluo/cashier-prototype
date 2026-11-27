@@ -1,0 +1,58 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>消费结算与积分本轮更新附录</title><style>body{margin:0;background:#f5f8fa;color:#243840;font:15px/1.8 system-ui,sans-serif}nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #dae5e9;padding:12px 24px;z-index:5}main{max-width:1100px;margin:24px auto;padding:28px;background:white;border-radius:12px}a{color:#0d6176;text-decoration:underline}h1{font-size:26px}h2{font-size:21px;border-bottom:1px solid #e4ecef;padding-bottom:9px;margin-top:32px}h3{font-size:17px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dfe7eb;padding:10px 12px;text-align:left;min-width:100px}th{background:#eff5f7}.scroll{overflow:auto}pre{background:#f5f8fa;padding:16px;overflow:auto;font-size:12px}p{margin:9px 0}@media(max-width:700px){main{margin:8px;padding:16px}}@media print{nav{display:none}}</style><nav><a href="index.html">← 菜单 PRD 阅读索引</a> · 更新于 2026-11-27</nav><main><p><a href="index.html">PRD 阅读索引</a> · <a href="round-20261127.html">本轮 PRD</a> · <a href="round-20261127-appendix.html">附录</a></p><h1 id="消费结算与积分本轮更新附录">消费结算与积分本轮更新附录</h1><p>主文档：<a href="round-20261127.html">PRD_消费结算与积分本轮更新_20261127</a>。</p><h2 id="a2-权限与审计">A2 权限与审计</h2><div class="scroll"><table><tr><th>操作</th><th>权限要求</th><th>审计内容</th></tr><tr><td>确认现金、余额预定</td><td>有消费结算确认权限</td><td>原订单、操作人、确认人、确认时间、支付方式及金额</td></tr><tr><td>单笔、批量还款</td><td>有还款权限，完成操作及确认验证</td><td>每单抵还、实际扣款、付款户口、收款记账户口、币种、备注</td></tr><tr><td>调整积分有效期</td><td>有积分期限调整权限</td><td>原记录、原到期日、新到期日、增加天数、原因、操作人及时间</td></tr><tr><td>配置公司积分记账户口</td><td>有中转户配置权限</td><td>修改前后绑定户口及操作人员</td></tr></table></div><p>原型中的演示身份及密码校验不能视为生产权限实现。生产角色映射、双人验证及接口授权须在上线前确认。</p><h2 id="a3-记账与数据流">A3 记账与数据流</h2><pre class="mermaid">flowchart TD
+    A[提交预定] --&gt; B{支付方式}
+    B --&gt;|现金或余额| C[待确认预定订单]
+    C --&gt; D[确认权限与金额校验]
+    D --&gt; E[确认成功并记账]
+    E --&gt; F[预定列表]
+    B --&gt;|公司垫付| G[生成代垫结算订单]
+    G --&gt; H[选择还款方式与金额]
+    H --&gt; I{积分代垫还款方式}
+    I --&gt;|现金或余额| J[公司总积分减少 公司积分记账户口现金余额增加]
+    I --&gt;|积分或他人积分| K[扣除付款客户积分 公司总积分不变]
+    I --&gt;|公司赠送| L[公司总积分减少 无现金入账]
+    J --&gt; M[还款记录与订单待还金额同步更新]
+    K --&gt; M
+    L --&gt; M</pre><div class="scroll"><table><tr><th>场景</th><th>客户积分</th><th>公司总积分</th><th>现金余额</th></tr><tr><td>转码获得积分</td><td>增加</td><td>减少</td><td>不因积分发放变动</td></tr><tr><td>未用积分逾期收回</td><td>减少</td><td>增加</td><td>不变</td></tr><tr><td>客户积分兑换，包括预定支付及积分还款</td><td>减少</td><td>不变</td><td>按业务规则处理，不虚构现金</td></tr><tr><td>手动调整客户积分</td><td>同操作增减</td><td>同向等额增减</td><td>不变</td></tr><tr><td>直接增减公司总积分</td><td>不变</td><td>同操作增减</td><td>不变</td></tr><tr><td>积分代垫以现金偿还</td><td>不扣客户积分</td><td>按本次抵还积分减少</td><td>公司积分记账户口增加实收金额</td></tr><tr><td>积分代垫以本人或他人余额偿还</td><td>不扣客户积分</td><td>按本次抵还积分减少</td><td>扣付款户口对应余额，增加公司积分记账户口实收金额</td></tr><tr><td>积分代垫以公司赠送偿还</td><td>不扣客户积分</td><td>按本次抵还积分减少</td><td>不收现金、不扣客户余额</td></tr></table></div><p>现金与积分不可直接相加。积分还款使用配置的换算规则，记录换算结果及规则快照；余额涉及外币时保留来源币种、来源扣款和记账币种信息。当前原型以 HKD 入账的路径应按实际配置验收，不能自行推定所有币种均一比一。</p><p>已使用积分包含预定支付、垫付还款、手动扣除客户积分余额、公司总积分扣除；同一业务产生多条关联记录时应防止重复计入。</p><h3 id="有效期规则">有效期规则</h3><p>有限期记录的新到期日 = 调整前到期日 + 本次增加天数。连续操作使用上次更新后的到期日。原积分记录直接更新，不新增获取、兑换或公司积分流水。审计日志独立记录。</p><p>调整有效期不增加积分数量，不恢复已消费或已失效扣除的余额。永久有效记录不执行按天延长。</p><h2 id="a4-一致性及异常处理">A4 一致性及异常处理</h2><p>- 确认订单、余额扣款、收款记账、积分扣减及状态变更应作为同一业务事务；任一步失败，不得仅完成其中一部分。</p><p>- 重复点击、网络重试不得重复确认、扣款、记账或生成还款记录。</p><p>- 提交时重新校验待还金额、余额、绑定户口及订单状态，避免使用弹窗打开时的旧数据。</p><p>- 批量还款按同户口、同代垫类型约束分配；显示总额，逐单保存实际抵还金额，不恢复已移除的分配预览区域。</p><p>- 历史流水保留原始归属；本轮改为公司积分记账户口不自动追溯迁移历史收款。历史差异另行核对，不能重复补记。</p><p>- 金额保持四位小数显示；积分显示不带四位小数或“点”“个”后缀。显示格式调整不应静默改变存储数量。</p><h2 id="a73-核心资料关系">A7.3 核心资料关系</h2><pre class="mermaid">erDiagram
+    ACCOUNT ||--o{ BOOKING : creates
+    BOOKING ||--o| CONFIRMATION : requires
+    BOOKING ||--o{ REPAYMENT : receives
+    ACCOUNT ||--o{ POINT_BATCH : owns
+    POINT_BATCH ||--o{ EXPIRY_AUDIT : records
+    REPAYMENT ||--o{ LEDGER_ENTRY : posts
+    ACCOUNT ||--o{ LEDGER_ENTRY : holds
+    ACCOUNT ||--o{ TRANSIT_BINDING : binds
+    BOOKING {
+        string order_number
+        string payment_method
+        string advance_type
+        string approval_status
+        string booking_status
+    }
+    CONFIRMATION {
+        string operator
+        string confirmer
+        datetime confirmed_at
+    }
+    POINT_BATCH {
+        string original_record_number
+        decimal original_quantity
+        decimal remaining_quantity
+        datetime expires_at
+    }
+    EXPIRY_AUDIT {
+        datetime previous_expiry
+        datetime next_expiry
+        int added_days
+        string reason
+    }
+    REPAYMENT {
+        string method
+        decimal repaid_quantity
+        decimal received_amount
+        string currency
+    }
+    LEDGER_ENTRY {
+        string business_reference
+        decimal change_amount
+        string asset_type
+    }</pre><p>本图用于表达业务关联，不要求采用上述数据库表名。订单审核状态与预定履行状态为不同概念。</p><h2 id="a9-待确认及验收边界">A9 待确认及验收边界</h2><div class="scroll"><table><tr><th>项目</th><th>边界与处理</th></tr><tr><td>积分小数输入</td><td>用户明确了显示不带四位小数，但未完整定义所有来源的小数入账与取整规则；上线前统一精度，避免显示和实际扣减不一致</td></tr><tr><td>历史收款归属</td><td>消费中转户与公司积分记账户口切换前的流水需对账；本次不自动迁移</td></tr><tr><td>权限与密码</td><td>原型演示不等于真实身份验证；生产端需补齐角色与双人确认约束</td></tr><tr><td>换算与多币种</td><td>使用现有配置；逐币种验证扣款、收款和兑换精度，不凭界面展示推定换算规则</td></tr><tr><td>生产验证</td><td>本文整理需求及原型基线，不宣称线上全量验收已通过；按主文档 §9 执行验收</td></tr></table></div><h2 id="a10-名词统一">A10 名词统一</h2><div class="scroll"><table><tr><th>名称</th><th>含义</th></tr><tr><td>公司总积分</td><td>原“积分池”统计及流水口径</td></tr><tr><td>客户总积分</td><td>客户当前剩余积分合计</td></tr><tr><td>已使用积分</td><td>本轮明确的使用及扣除业务统计</td></tr><tr><td>消费结算</td><td>待确认预定订单与原代垫还款订单所在菜单</td></tr><tr><td>公司积分记账户口</td><td>积分代垫现金或余额还款最终指定的收款记账户口</td></tr></table></div><h2 id="a11-需求依据">A11 需求依据</h2><p>依据本轮用户对积分、消费结算、预定审核及展示的连续修订，以后续明确指令优先；原型基线为 <a href="https://github.com/bala-luoluo/cashier-prototype/commit/e207a8806f7e83b87fe01e2497373a267a3f01ed">e207a88</a>。之前文档保留于阅读索引，发生冲突时以本轮明确修订为准。</p></main><script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral'});</script></html>
