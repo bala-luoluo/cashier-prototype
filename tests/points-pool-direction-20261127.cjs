@@ -1,0 +1,11 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const data={};const ctx={localStorage:{getItem:k=>data[k]||null,setItem:(k,v)=>data[k]=v},Intl,Date,console};vm.createContext(ctx);vm.runInContext(fs.readFileSync('src/points/src/points-engine.js','utf8'),ctx);
+const p=ctx.Points;const check=()=>{const s=p.snapshot();for(const f of s.flows.filter(x=>x.place==='客户持有')){const matches=s.flows.filter(x=>x.customerFlow===f.no);assert.equal(matches.length,1);assert.equal(matches[0].amount,f.amount)}assert.equal(s.pool,s.holding+100)};
+p.finance(100,'期初','2026-11-27','a','b');p.manual('QA',50,'添加','a','b');check();p.manual('QA',-5,'扣除','a','b');check();
+p.transaction([{account:'QA',amount:-10,order:'booking',method:'酒店'}],'booking');check();
+p.transaction([{account:'QA',amount:-5,order:'repay',method:'垫付还款'}],'repay');check();
+const before=JSON.stringify(p.snapshot());assert.equal(p.transaction([{account:'QA',amount:-5}],'repay'),false);assert.throws(()=>p.transaction([{account:'QA',amount:-999}],'bad'));assert.equal(JSON.stringify(p.snapshot()),before);
+p.correct(p.snapshot().batches[0].no,2,'更正','a','b');check();
+p.close({order:'close',account:'QA',turnover:1});check();
+const s=p.snapshot();const future=p.snapshot(Date.now()+100*86400000);assert.equal(future.holding,0);assert.equal(future.pool,100);assert.equal(future.flows.filter(f=>f.customerFlow).length,future.flows.filter(f=>f.place==='客户持有').length);
+console.log('PASS: 同向等额同步、收工、增减、更正、预定、还款、到期、重复及失败无重复记账');
