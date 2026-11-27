@@ -72,6 +72,7 @@ export function ledgerUI(host,mode,directory){
  form.querySelectorAll('input[type=date]').forEach(input=>input.closest('label').hidden=true);quick.hidden=true;
  area.querySelectorAll('tbody tr').forEach(tr=>{if(tr.cells.length>2)tr.cells[2].classList.add('points-list-amount')});
  }
+ const resetButton=document.createElement('button');resetButton.type='button';resetButton.id='points-filter-reset';resetButton.textContent='重置';resetButton.onclick=()=>{q='';method='';range('this');quickRange='this';render()};form.insertBefore(resetButton,exportButton);
  const count=document.createElement('p');count.className='points-list-count';count.textContent='共 '+rows.length+' 笔 · 积分单位：点';area.prepend(count);
  if(tab==='exchange'){section.classList.add('points-exchange-layout');const methodLabel=form.querySelector('[name=method]').closest('label');form.insertBefore(quick,methodLabel);methodLabel.classList.add('exchange-method-filter');}
  if(tab==='acquire'||tab==='exchange')area.querySelectorAll('tbody tr').forEach(tr=>{if(tr.cells.length>4)tr.cells[4].classList.add('points-list-amount')});

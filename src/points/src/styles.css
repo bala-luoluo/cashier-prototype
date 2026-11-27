@@ -1680,3 +1680,5 @@ dialog.points-list-detail th{padding:13px 17px;background:#f5f8f9;color:#60727c;
 dialog.points-list-detail td{padding:14px 17px}
 dialog.points-list-detail .account-detail-filter button.active{background:#e2eff2;color:#0d5c72;border-color:#e2eff2}
 @media(max-width:600px){dialog.points-list-detail .points-detail-head,dialog.points-list-detail .points-detail-body,dialog.points-list-detail .points-detail-foot{padding:16px}dialog.points-list-detail .points-detail-head h2{font-size:16px}}
+
+.points-list-layout #points-filter-reset{margin-top:27px;min-height:42px;white-space:nowrap}
