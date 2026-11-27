@@ -77,3 +77,5 @@ dialog .actions button{font-size:13px;min-height:38px}
 .repay-dialog .modal-body>.actions{position:sticky;bottom:0;background:#fff;border-top:1px solid #e2e8eb;padding:12px 0;margin:0;z-index:3;box-shadow:0 -8px 12px #ffffffed}
 .repay-dialog .modal-body>.actions button{min-width:88px}
 @media(max-width:600px){.repay-dialog .modal-body{padding:16px 16px 0}.repay-dialog .modal-head{padding:16px}.repay-dialog .repay-auth{grid-template-columns:1fr 1fr}.repay-dialog .repay-amount-card{gap:12px}.repay-dialog .repay-amount-line strong{font-size:20px}}
+
+.reservation-actions{display:inline-flex;align-items:center;gap:6px}.reservation-actions>button{padding:6px 10px}.reservation-more-menu{position:fixed;inset:auto;margin:0;width:156px;padding:6px;border:1px solid #d5dde1;border-radius:8px;background:#fff;box-shadow:0 6px 24px #13232b26}.reservation-more-menu:popover-open{display:flex;flex-direction:column;gap:2px}.reservation-more-menu button{display:block;width:100%;border:0;text-align:left;border-radius:4px;padding:9px 12px;font-size:13px}.reservation-more-menu button:hover{background:#e2eff2}

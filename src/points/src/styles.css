@@ -1682,3 +1682,9 @@ dialog.points-list-detail .account-detail-filter button.active{background:#e2eff
 @media(max-width:600px){dialog.points-list-detail .points-detail-head,dialog.points-list-detail .points-detail-body,dialog.points-list-detail .points-detail-foot{padding:16px}dialog.points-list-detail .points-detail-head h2{font-size:16px}}
 
 .points-list-layout #points-filter-reset{margin-top:27px;min-height:42px;white-space:nowrap}
+
+.expiry-batch-toolbar{display:flex;justify-content:flex-end;margin:12px 0}.points-list-layout input[type=checkbox]{width:16px;height:16px;accent-color:#0d5c72}.points-list-layout .sticky-action button+button{margin-left:6px}
+
+dialog.expiry-adjust-dialog{width:1000px}.expiry-adjust-dialog .table-wrap{margin:16px 0}.expiry-adjust-dialog table{min-width:850px;white-space:nowrap}.expiry-adjust-dialog td:nth-child(5){font-weight:600;color:#0d5c72}
+
+.company-points-balances{border:1px solid #e2e8eb;border-radius:12px;padding:18px 20px;margin:0 0 22px;background:#fff}.company-points-balances-title{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.company-points-balances-title span{font-size:12px;color:#60727c}.company-points-currencies{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}.company-points-currencies>div{background:#f3f6f7;border-radius:8px;padding:12px 16px;display:flex;flex-direction:column;gap:6px}.company-points-currencies span{color:#60727c;font-size:12px}.company-points-currencies strong{font-size:18px;font-variant-numeric:tabular-nums;color:#263840}

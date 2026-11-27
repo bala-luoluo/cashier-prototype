@@ -1,5 +1,6 @@
 // Booking transactions use the same local account registry and ledger as the cashier.
 window.bookingBridge={
+ companyPointsAccount(){const a=transitBindings['公司积分记账户口'];if(!a)return null;return {...a,balances:coins.map(currency=>{const b=settlementAccount(a.id,currency);return {currency,balance:b?Number(b.cash)/10000:null}})}},
  pointsConfig(){return Points.config()},
  pointsBalance(a){return Points.balance(a)},
  pointsExpiry(a){return Points.nearest(a)},
@@ -12,7 +13,7 @@ window.bookingBridge={
  post(transaction){
   retainAccount();const moneyRows=transaction.money||[],pointRows=transaction.points||[],net=new Map(),pn=new Map(),exempt=new Map();
   for(const r of moneyRows){if(!Number.isSafeInteger(r.units))throw Error('金额超出支持范围');const k=r.account+'|'+r.currency;net.set(k,(net.get(k)||0)+r.units);if(r.balanceExempt&&r.units<0)exempt.set(k,(exempt.get(k)||0)-r.units)}
-  for(const r of pointRows){if(!Number.isFinite(r.amount))throw Error('积分无效');pn.set(r.account,(pn.get(r.account)||0)+r.amount)}
+  for(const r of pointRows){if(!Number.isFinite(r.amount))throw Error('积分无效');if(r.place!=='积分池')pn.set(r.account,(pn.get(r.account)||0)+r.amount)}
   const tn=new Map();for(const r of transaction.till||[]){if(!Number.isSafeInteger(r.units))throw Error('银头金额无效');const k=r.hall+'|'+r.currency;tn.set(k,(tn.get(k)||0)+r.units)}for(const [k,n] of tn){const [h,c]=k.split('|'),i=sessionTillIndex(c);if(i<0||!companyFunds[h])throw Error('公司厅别或币种未配置');if(units(companyFunds[h][i])+BigInt(n+(net.get(k)||0)+(exempt.get(k)||0))<0n)throw Error('公司现金银头不足，无法退款')}
   const lookup=a=>[...accountRegistry.values()].find(s=>s.account.code+s.account.number===a)||(companyFunds[a]?{company:a,account:{name:'公司户'},balances:Object.fromEntries(coins.map(c=>[c,{cash:sessionTillIndex(c)>=0?units(companyFunds[a][sessionTillIndex(c)]):0n,frozen:0n}])),ledger:[]}:null);
   for(const [k,n] of net){const [acct,cur]=k.split('|'),s=lookup(acct),b=s?.company?s.balances[cur]:settlementAccount(acct,cur);if(!s||!b)throw Error('户口不存在：'+acct);if(n<0&&s.account.locked)throw Error('户口已冻结：'+acct);if(n<0&&b.cash-b.frozen+BigInt(n+(s.company?(tn.get(k)||0):0)+(exempt.get(k)||0))<0n&&!accountAllowsNegative(acct))throw Error(acct+' '+cur+' 可用余额不足');}
